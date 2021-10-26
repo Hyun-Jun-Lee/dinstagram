@@ -1,10 +1,32 @@
 
 
+{% extends "accounts/layout.html" %}
+{% load bootstrap4 %}
 
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-    <input type="submit"/>
-</form>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <dib class="col-sm-6 offset-sm-3">
+                {% include "_form.html" with submit_label="회원가입" %}
+            </dib>
+        </div>
+    </div>
+
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <dib class="col-sm-6 offset-sm-3">-->
+<!--                <form action="" method="POST" enctype="multipart/form-data">-->
+<!--                    {% csrf_token %}-->
+<!--                    {% bootstrap_form form %}-->
+<!--                    {% buttons %}-->
+<!--                    <button type="submit" class="btn btn-primary">-->
+<!--                        회원가입-->
+<!--                    </button>-->
+<!--                    {% endbuttons %}-->
+<!--                </form>-->
+<!--            </dib>-->
+<!--        </div>-->
+<!--    </div>-->
+
+{% endblock %}
+
