@@ -1,0 +1,13 @@
+{% extends "accounts/layout.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <dib class="col-sm-6 offset-sm-3">
+                {% include "_form.html" with form_title="Profile 수정" submit_label="Profile 수정" %}
+            </dib>
+        </div>
+    </div>
+
+{% endblock %}
