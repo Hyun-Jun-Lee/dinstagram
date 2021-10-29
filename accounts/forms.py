@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 from .models import User
 from django import forms
@@ -29,3 +29,11 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['avatar', 'first_name','last_name', 'website_url', 'bio', 'phone_number', 'gender']
+
+class Password_Change_Form(PasswordChangeForm): # 기존 Form 상속받아서 수정
+    def clean_new_password2(self): # 이전 PW와 바꾼 PW 같으면 안되게 만들어주는 옵션
+        old_password = self.cleaned_data.get('old_password')
+        new_password2 = super().clean_new_password2()
+        if old_password == new_password2:
+            raise forms.ValidationError("기존 PW와 다르게 변경해 주세요")
+        return new_password2
