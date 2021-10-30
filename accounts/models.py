@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from django.db import models
 
 # Create your models here.
+from django.shortcuts import resolve_url
+
 
 class User(AbstractUser):
     # 성별 남,여 선택할 수 있게 설정
@@ -16,3 +18,14 @@ class User(AbstractUser):
     gender = models.CharField(max_length=2, blank=True, choices=GenderChoices.choices)
     # profile 이미지 업로드 전에 1. form에서 enctype="multipart/form-data" 확인 2. view에서 request.FILES 확인
     avatar = models.ImageField(blank=True, upload_to="accounts/avatar/%y%m%d") # 파일 업로드한 연/월/일 별로 폴더만들어서 저장
+
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+        else:
+            return resolve_url("pydenticon_image", self.username)
