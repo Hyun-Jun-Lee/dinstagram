@@ -1,0 +1,11 @@
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['photo', 'caption', 'location']
+        # forms 에서는 widgets 통해 수정 가능
+        widgets = {
+            "caption":forms.Textarea
+        }
