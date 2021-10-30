@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from instagram.forms import PostForm
-from instagram.models import Tag
+from instagram.models import Tag, Post
 
 
 @login_required
@@ -17,9 +17,15 @@ def post_new(request):
             post.save()
             post.tag_set.add(*post.extract_tag_list())
             messages.success(request, "포스팅을 완료하였습니다.")
-            return redirect('/') # 향후 get_absolute_url 활용
+            return redirect(post)
     else:
         form = PostForm
     return render(request, "instagram/post_form.html", {
         "form":form,
+    })
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, "instagram/post_detail.html", {
+        "post":post,
     })
