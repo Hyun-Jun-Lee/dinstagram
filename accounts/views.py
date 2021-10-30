@@ -51,7 +51,7 @@ class Password_Change_View(LoginRequiredMixin, PasswordChangeView):
     template_name = 'accounts/password_change_form.html'
     form_class = Password_Change_Form
 
-    def form_valid(self, form) # 유효성 검사
+    def form_valid(self, form): # 유효성 검사
         messages.success(self.request, "암호를 변경 완료 하였습니다.")
         return super().form_valid(form)
 
