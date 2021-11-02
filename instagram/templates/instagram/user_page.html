@@ -12,6 +12,12 @@
                 <a href="{% url 'profile_edit' %}" class="btn btn-primary">
                     Edit_Profile
                 </a>
+                <!-- follow, unfollow 상황따라 버튼-->
+                {% if is_follow %}
+                    <a href="{% url 'user_unfollow' page_user.username %}" class="text-decoration-none">UnFollow</a>
+                {% else %}
+                    <a href="{% url 'user_follow' page_user.username %}" class="text-decoration-none">Follow</a>
+                {% endif %}
                 <hr/>
                 {{ post_count }} posts, 0 followers, 0 following
                 <hr/>

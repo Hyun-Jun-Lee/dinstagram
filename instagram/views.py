@@ -14,7 +14,7 @@ def index(request):
     post_list = Post.objects.all()\
         .filter(
         Q(author__in=request.user.following_set.all()) |
-        Q(author=request.user) #작성자가 자신인 경우
+        Q(author=request.user)
     )
 
     # 현재 로그인한 user 제외하고 받기
@@ -50,10 +50,17 @@ def post_detail(request, pk):
 
 def user_page(request,username):
     page_user = get_object_or_404(get_user_model(), username=username, is_active=True)
+    if request.user.is_authenticated:
+        # following_set에 page_user의 pk가 포함되어 있는지 확인
+        is_follow = request.user.following_set.filter(pk=page_user.pk).exists()
+    else:
+        is_follow = False
+
     post_list = Post.objects.filter(author=page_user)
     post_count = post_list.count() # DB에 count 쿼리 수행/ len()은 메모리에 올려서 수행
     return render(request, "instagram/user_page.html", {
         "page_user": page_user,
         "post_list": post_list,
         "post_count":post_count,
+        "is_follow":is_follow,
     })
