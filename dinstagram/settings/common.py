@@ -93,6 +93,7 @@ DATABASES = {
     }
 }
 
+# get_user_model() 사용하기위한 설정
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
