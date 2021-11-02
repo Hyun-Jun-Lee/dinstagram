@@ -11,7 +11,11 @@ class User(AbstractUser):
     class GenderChoices(models.TextChoices):
         MALE = "M", "Male" # DB에 저장되는 값, 실제 값
         FEMAle = "F", "Female"
-    website_url = models.URLField(blank=True) # 없어도 됨
+    # follow 관계 구현
+    follow_set = models.ManyToManyField("self", blank=True)
+    following_set = models.ManyToManyField("self", blank=True)
+
+    website_url = models.URLField(blank=True)
     bio = models.TextField(blank=True)
     # 정규표현식 사용해서 휴대폰 번호 양식 지정 -?[1-9]\d{3}-?\d{4}$
     phone_number = models.CharField(max_length=13, blank=True, validators=[RegexValidator(r"^010-?([0-9]{3,4})-?([0-9]{4})$")])
