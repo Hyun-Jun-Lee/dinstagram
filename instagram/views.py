@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -9,10 +10,18 @@ from instagram.models import Tag, Post
 
 @login_required
 def index(request):
+    # author가 현재 user의 following_set에 포함된 경우만 조회, or 연산위해 Q 사용
+    post_list = Post.objects.all()\
+        .filter(
+        Q(author__in=request.user.following_set.all()) |
+        Q(author=request.user) #작성자가 자신인 경우
+    )
+
     # 현재 로그인한 user 제외하고 받기
     suggest_user_list = get_user_model().objects.all().exclude(pk=request.user.pk)\
         .exclude(pk__in=request.user.following_set.all()) # follow하고나면 추천목록에서 사라지게
     return render(request, "instagram/index.html",{
+        "post_list":post_list,
         "suggest_user_list":suggest_user_list,
     })
 
