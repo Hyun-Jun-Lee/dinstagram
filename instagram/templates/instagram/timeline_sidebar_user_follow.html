@@ -2,12 +2,12 @@
 
 <div class="d-flex mb-2">
   <div class="p-2">
-      <img src="{{ friend_user.avatar_url }}" style="sidth:32px; height:32px" class="rounded-circle">
+      <img src="{{ suggested_user.avatar_url }}" style="sidth:32px; height:32px" class="rounded-circle">
   </div>
   <div class="p-2">
-      {{ friend_user.username }}
+      {{ suggested_user.username }}
   </div>
   <div class="ms-auto p-2">
-      <a href="#" class="text-decoration-none">Follow</a>
+      <a href="{% url 'user_follow' suggested_user.username %}" class="text-decoration-none">Follow</a>
   </div>
 </div>

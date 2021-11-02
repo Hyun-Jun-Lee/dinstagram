@@ -9,8 +9,11 @@ from instagram.models import Tag, Post
 
 @login_required
 def index(request):
+    # 현재 로그인한 user 제외하고 받기
+    suggest_user_list = get_user_model().objects.all().exclude(pk=request.user.pk)\
+        .exclude(pk__in=request.user.following_set.all()) # follow하고나면 추천목록에서 사라지게
     return render(request, "instagram/index.html",{
-
+        "suggest_user_list":suggest_user_list,
     })
 
 @login_required
