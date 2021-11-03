@@ -64,3 +64,20 @@ def user_page(request,username):
         "post_count":post_count,
         "is_follow":is_follow,
     })
+
+@login_required
+def post_like(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    # 좋아요를누르면 현재 user의 like_user_set에 추가
+    post.like_user_set.add(request.user)
+    messages.success(request, '좋아요')
+    redirect_url = request.META.get("HTTP_REFERER", "root")
+    return redirect(redirect_url)
+
+@login_required
+def post_unlike(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.like_user_set.remove(request.user)
+    messages.success(request, '좋아요 취소')
+    redirect_url = request.META.get("HTTP_REFERER", "root")
+    return redirect(redirect_url)
