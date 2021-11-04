@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from instagram.forms import PostForm
+from instagram.forms import PostForm, CommentForm
 from instagram.models import Tag, Post
 
 @login_required
@@ -17,12 +17,14 @@ def index(request):
         Q(author=request.user)
     )
 
+    comment_form = CommentForm()
     # 현재 로그인한 user 제외하고 받기
     suggest_user_list = get_user_model().objects.all().exclude(pk=request.user.pk)\
         .exclude(pk__in=request.user.following_set.all()) # follow하고나면 추천목록에서 사라지게
     return render(request, "instagram/index.html",{
         "post_list":post_list,
         "suggest_user_list":suggest_user_list,
+        "comment_form": comment_form,
     })
 
 @login_required
@@ -44,8 +46,10 @@ def post_new(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    comment_form = CommentForm()
     return render(request, "instagram/post_detail.html", {
-        "post":post,
+        "post": post,
+        "comment_form": comment_form,
     })
 
 def user_page(request,username):
@@ -81,3 +85,21 @@ def post_unlike(request, pk):
     messages.success(request, '좋아요 취소')
     redirect_url = request.META.get("HTTP_REFERER", "root")
     return redirect(redirect_url)
+
+@login_required
+def comment_new(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect(comment.post)
+    else:
+        form = CommentForm()
+    return render(request, "instagram/comment_form.html", {
+        "form" : form,
+    })
