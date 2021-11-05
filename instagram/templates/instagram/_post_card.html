@@ -21,7 +21,7 @@
             {% endif %}
         </div>
         <!--post.comment_set.all은 post 변수 내 Comment 모델 클래스를 통해 DB에 저장된 첫번째 레코드를 가져온다-->
-        <div class="comment-list mt-3 mb-3">
+        <div id="post-{{ post.pk }}-commnet-list" class="comment-list mt-3 mb-3">
             {% for comment in post.comment_set.all %}
                 {% include 'instagram/_comment.html' %}
             {% endfor %}
@@ -52,32 +52,5 @@
             {% bootstrap_form comment_form %}
             <button>Comment</button>
         </form>
-
-        <div id="server-response-{{ post.pk }}"></div>
-
-        <script>
-            $(function() {
-                var form_id = "post-{{ post.pk }}-comment-form";
-                $("#" + form_id).submit(function(e) {
-                    e.preventDefault();
-
-                    var options = {
-                    target: "#server-response-{{ post.pk }}",
-                    success: function(responseText, statusText, xhr, $form) {
-                        console.group("ajaxSubmit response");
-                        console.log(responseText);
-                        console.log(statusText);
-                        console.log(xhr);
-                        console.log($form);
-                        console.groupEnd();
-                        }
-                    };
-
-                    $(this).ajaxSubmit(options);
-                });
-
-                console.log("document ready.");
-                });
-        </script>
     </div>
 </div>
