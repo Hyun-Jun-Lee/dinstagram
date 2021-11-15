@@ -39,7 +39,7 @@ def profile_edit(request):
         if form.is_valid():
             form.save()
             messages.success(request, "프로필을 수정하였습니다.")
-            return redirect("profile_edit")
+            return redirect("instagram:index")
     else:
         form = ProfileForm(instance=request.user)
     return render(request, "accounts/profile_edit_form.html", {
