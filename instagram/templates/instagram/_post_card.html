@@ -7,17 +7,30 @@
         justify-content: space-between;
     }span{
          padding-right: 5px;
-     }
+    }
+    
+
+    .feed_name_txt{
+        font-size: 16px;
+        padding: 5px 10px;
+        font-weight: bold;
+    }
+
+    .feed_img{
+        width: 100%;
+        object-fit: contain;
+    }
+    
 </style>
 
 <div class="card">
-    <div class="card-header">
+    <div class="feed_name_txt">
         <img src="{{ post.author.avatar_url }}" alt="" style="width: 32px; height:32px; border-radius: 15px;">
         <a href="{% url 'instagram:user_page' post.author.username %}" class="text-decoration-none">
             {{ post.author.name }}
         </a>
     </div>
-    <div class="card-body">
+    <div class="feed_img">
         <img src="{{ post.photo.url }}" alt="" style="width:100%;" />
         <div class="feed_icon">
             <div>
@@ -38,9 +51,9 @@
             </a>
             </div>
             <div>
-            <a href="#">
-                <svg aria-label="저장" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon></svg>
-            </a>
+                <a href="#">
+                    <svg aria-label="저장" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon></svg>
+                </a>
             </div>
         </div>
         <!--post.comment_set.all은 post 변수 내 Comment 모델 클래스를 통해 DB에 저장된 첫번째 레코드를 가져온다-->
@@ -69,12 +82,17 @@
 
 
     </div>
-    <div class="card-footer">
+    <div style="display: inline-flex;">
         <form id="post-{{ post.pk }}-comment-form" action="{% url 'instagram:comment_new' post.pk %}" method="POST">
             <div>
             {% csrf_token %}
-            {% bootstrap_form comment_form %}<button>게시</button>
+                <div style="width:800px;">
+                    {% bootstrap_form comment_form %} 
+                </div>
             </div>
         </form>
+        <div style="text-align: right; margin-top:30px">
+            <button>게시</button>
+        </div>
     </div>
 </div>
