@@ -1,4 +1,21 @@
 
+<style>
+    .recommend_box {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        align-items: center;
+    }
+
+    .name_content{
+        display: flex;
+        flex-direction: column;
+    }
+    
+</style>
+
 <div class="d-flex p-2 mb-3">
     <div class="mx-2">
         <img src="{{ user.avatar_url }}" style="width:48px; height:48px;" class="rounded-circle">
@@ -9,21 +26,12 @@
     </div>
 </div>
 
-<div class="card mb-3">
-    <div class="card-header">
-        Stories
+<div>
+    <div class="recommend_box">
+        <span style="color: gray"> 회원님을 위한 추천</span>
+        <span style="font-size: 12px"> 모두 보기 </span>
     </div>
-    <div class="card-body text-muted">
-        Stories from people you follow will show up here.
-    </div>
-
-</div>
-
-<div class="card mb-3">
-    <div class="card-header text-muted">
-        Suggestion for You
-    </div>
-    <div class="card-body text-muted">
+    <div class="name_content">
         {% for suggested_user in suggest_user_list%}
             {% include "instagram/timeline_sidebar_user_follow.html" %}
         {% empty %}
