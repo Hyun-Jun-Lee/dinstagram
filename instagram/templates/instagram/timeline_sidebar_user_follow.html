@@ -1,15 +1,28 @@
 
+<style>
+    .name_content_txt{
+        font-size: 12px;
+        padding: 0px 10px;
+        font-weight: bold;
+        color: lightgray;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 190px;
+    }
+</style>
 
 <div class="d-flex mb-2">
   <div class="p-2">
-      <img src="{{ suggested_user.avatar_url }}" style="sidth:32px; height:32px" class="rounded-circle">
+      <img src="{{ suggested_user.avatar_url }}" style="width:32px; height:32px" class="rounded-circle">
   </div>
-  <div class="p-2">
-      <a href="{% url 'instagram:user_page' suggested_user.username %}">
+  <div class="name_content">
+      <a href="{% url 'instagram:user_page' suggested_user.username %}" style="text-decoration: none; font-size: 20px; padding-left: 10px; color:black">
           {{ suggested_user.username }}
       </a>
+      <span class="name_content_txt"> 회원님을 위한 추천</span>
   </div>
   <div class="ms-auto p-2">
-      <a href="{% url 'user_follow' suggested_user.username %}" class="text-decoration-none">Follow</a>
+      <a href="{% url 'user_follow' suggested_user.username %}" class="text-decoration-none" style="font-size: 20px;">팔로우</a>
   </div>
 </div>
