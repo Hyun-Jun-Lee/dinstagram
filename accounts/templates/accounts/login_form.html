@@ -9,7 +9,13 @@
             <div class="col-sm-6 offset-sm-3">
                 {% include "_form.html" with form_title="로그인" submit_label="로그인" %}
             </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a style="text-decoration:none;" href="{% url 'signup' %}">
+                    ID가 없다면 회원가입
+                </a>
+            </div>
         </div>
+        
     </div>
 
 {% endblock %}
