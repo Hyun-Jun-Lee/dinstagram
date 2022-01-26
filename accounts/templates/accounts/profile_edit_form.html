@@ -7,6 +7,11 @@
             <div class="col-sm-6 offset-sm-3">
                 {% include "_form.html" with form_title="Profile 수정" submit_label="Profile 수정" %}
             </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a style="text-decoration:none;" href="{% url 'logout' %}">
+                    LogOut
+                </a>
+            </div>
         </div>
     </div>
 
