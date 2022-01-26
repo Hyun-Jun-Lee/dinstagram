@@ -26,7 +26,10 @@ SECRET_KEY = 'q0r9r%z*pj1h40opmbjhxzih9=3bshl(lkbbrmomr4hvx61fpq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    ".ap-northeast-2.compute.amazonaws.com",
+    "ec2-15-164-231-124.ap-northeast-2.compute.amazonaws.com"
+]
 
 LOGIN_REDIRECT_URL = '/instagram/'
 
