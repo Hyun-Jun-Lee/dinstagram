@@ -12,10 +12,10 @@ from instagram.models import Tag, Post
 def index(request):
     # author가 현재 user의 following_set에 포함된 경우만 조회, or 연산위해 Q 사용
     post_list = Post.objects.all()\
-        .filter(
-        Q(author__in=request.user.following_set.all()) |
-        Q(author=request.user)
-    )
+    #     .filter(
+    #     Q(author__in=request.user.following_set.all()) |
+    #     Q(author=request.user)
+    # )
 
     comment_form = CommentForm()
     # 현재 로그인한 user 제외하고 받기

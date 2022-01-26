@@ -68,10 +68,7 @@
             {% for tag in post.tag_set.all %}
                 <span class="badge bg-secondary" >
                     #{{ tag.name }}
-                </span>
-                <span>
-                    {{ tag.message }}
-                </span>
+                </span> 
             {% endfor %}
         </div>
 
