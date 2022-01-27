@@ -28,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     ".ap-northeast-2.compute.amazonaws.com",
-    "ec2-15-164-231-124.ap-northeast-2.compute.amazonaws.com"
+    "ec2-15-164-231-124.ap-northeast-2.compute.amazonaws.com",
+    ".dinstagram.shop"
 ]
 
 LOGIN_REDIRECT_URL = '/instagram/'
